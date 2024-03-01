@@ -52,7 +52,7 @@ public class RequestController {
     }
 
     @GetMapping(value = "/getRequestByRequestUser")
-    public List<RequestModelResponse> getAllRequestByRequestUser(@RequestParam UUID resquest_by) {
+    public List<RequestModelResponse> getAllRequestByRequestUser(@RequestParam("request_by") UUID resquest_by) {
         return requestService.getAllRequestByRequestUser(resquest_by);
 
     }

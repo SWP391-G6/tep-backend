@@ -3,7 +3,9 @@ package com.main.timeshareexchangeplatform_backend.service.impl;
 import com.main.timeshareexchangeplatform_backend.converter.BookingConverter;
 import com.main.timeshareexchangeplatform_backend.converter.TimeshareConverter;
 import com.main.timeshareexchangeplatform_backend.dto.BookingModel;
+import com.main.timeshareexchangeplatform_backend.dto.RequestModelResponse;
 import com.main.timeshareexchangeplatform_backend.entity.Booking;
+import com.main.timeshareexchangeplatform_backend.entity.Request;
 import com.main.timeshareexchangeplatform_backend.entity.Timeshare;
 import com.main.timeshareexchangeplatform_backend.repository.BookingRepository;
 import com.main.timeshareexchangeplatform_backend.repository.TimeshareRepository;
@@ -16,7 +18,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingImpl implements IBookingService {
@@ -79,6 +84,19 @@ public class BookingImpl implements IBookingService {
 
         return null;
     }
+
+    @Override
+    public List<BookingModel> showAllBooking(UUID userId) {
+        List<BookingModel> bookingEntity = new ArrayList<>();
+        BookingConverter bookingConverter1 = bookingConverter;
+        for (Booking booking : bookingRepository.showAllBooking(userId)) {
+            BookingModel dto = bookingConverter1.toDTO(booking);
+            bookingEntity.add(dto);
+        }
+
+        return bookingEntity;
+    }
+
 
     private String generateUniqueBookingCode() {
         // Get current date and time

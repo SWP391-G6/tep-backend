@@ -17,4 +17,6 @@ public interface IRequest {
     List<RequestModelResponse> getAllRequestByResponseId(UUID response_by);
 
     List<RequestModelResponse> getAllRequestByRequestUser(UUID resquest_by);
+
+
 }

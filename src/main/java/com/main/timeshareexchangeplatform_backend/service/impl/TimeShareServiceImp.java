@@ -36,6 +36,14 @@ import java.util.UUID;
 
         return timeshareRespone;
     }
+
+    @Override
+    public List<TimeshareDTO> showAllTimeshareUser(UUID userId) {
+            List<Timeshare> timeshares= myTimeShareRepository.showAllTimeshareUser(userId);
+
+        return timeshareConverter.convertToAccountPlaylistDTOList(timeshares);
+    }
+
     @Override
     public TimeshareRespone getTimeshareByUserId(UUID userId) {
         Object result = myTimeShareRepository.findTimeshareDetailbyUserId(userId);

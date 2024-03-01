@@ -1,6 +1,7 @@
 package com.main.timeshareexchangeplatform_backend.controller;
 
 import com.main.timeshareexchangeplatform_backend.dto.LoginDTO;
+import com.main.timeshareexchangeplatform_backend.dto.TimeshareRespone;
 import com.main.timeshareexchangeplatform_backend.dto.UserDTO;
 import com.main.timeshareexchangeplatform_backend.entity.User;
 import com.main.timeshareexchangeplatform_backend.reponse.ReponseObject;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,5 +42,17 @@ public class UserController {
     public List<UserDTO> findAll() {
 
         return userService.findAll();
+    }
+
+
+    @GetMapping("/getUserById/{userId}")
+    public ResponseEntity<?> getUserById (@PathVariable UUID userId){
+        UserDTO userDTO= userService.getUserById(userId);
+
+        if (userDTO != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No details found for userId: " + userId);
+        }
     }
 }
